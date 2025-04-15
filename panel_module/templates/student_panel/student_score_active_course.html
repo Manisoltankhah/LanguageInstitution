@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header_refrences %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/panelstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/portal.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.15.4-web/css/all.css' %}">
+{% endblock %}
+
+{% block title %}
+    نمرات قبلی
+{% endblock %}
+
+{% block content %}
+<body>
+    <section>
+        <div class="w90 text-center title2 padtop">
+            <b>نمرات دوره‌های قبلی</b>
+        </div>
+
+        <!-- Debugging: Display raw context data -->
+        <p>Current Student: {{ current_student.username }}</p>
+        <p>Previous Terms: {{ previous_terms }}</p>
+
+        <table class="content">
+            <thead>
+                <tr>
+                    <th>ردیف</th>
+                    <th>نام ترم</th>
+                    <th>مشاهده نمرات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if previous_terms %}
+                    {% for term in previous_terms %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ term.name }}</td>
+                            <td>
+                                <a href="{% url 'score_detail' student_slug=current_student.slug class_slug=term.slug %}">
+                                    مشاهده
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="3">نمراتی برای دوره‌های قبلی وجود ندارد.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </section>
+</body>
+{% endblock %}

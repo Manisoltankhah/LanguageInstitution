@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block header_refrences %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/panelstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome-free-5.15.4-web/css/all.css' %}">
+{% endblock %}
+{% block title %}
+	پنل زبان آموز
+{% endblock %}
+{% block content %}
+	<main id="mainpanel">
+				<aside class="panelsidebar">
+					<div class="layer"></div>
+					<div class="text-center">
+						<ul class="noliststyle menupanel gridpanel">
+							<li>
+								<a class="nodecoration text-center" href="#">
+									<div class="logo text-center">
+										<img src="../images/icons/institute.png" alt="logo" title="اموزشگاه زبان رایکا"></img>
+									</div>
+								</a>
+							</li>
+							<li><a class="nodecoration text-center" href="{% url 'attendance_course' slug=current_student.slug %}">دوره های فعال</a></li>
+							<li><a class="nodecoration text-center" href="{% url 'attendance_course' slug=current_student.slug %}">حضور/غیاب</a></li>
+							<li><a class="nodecoration text-center" href="{% url 'score_courses' slug=current_student.slug %}">نمرات</a></li>
+							<li><a class="nodecoration text-center" href="{% url 'home' %}">بازگشت به صفحه ی اصلی</a></li>
+							<li class="exiticon"><a class="nodecoration text-center" href="#"><i class="iconexit fas fa-times-circle"></i></a></li>
+						</ul>
+					</div>
+				</aside>
+				<section id="content">
+					<header id="headerpanel">
+						<div class=" headerback flex ">
+							<div class="text-center">
+								<div class="fontu"><b></b></div>
+								<div class="fontd"><b></b></div>
+							</div>
+							<div class="menuicon nodecoration">
+								<i class="icon fas fa-bars"></i>
+							</div> 
+						</div>
+					</header>
+					<div  class="w90 pdtb flex-evenly2">
+						<div class="panelborder  flex-center">
+							<div>
+								<i><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#FFFFFF"><path d="M481-120v-60h299v-600H481v-60h299q24 0 42 18t18 42v600q0 24-18 42t-42 18H481Zm-55-185-43-43 102-102H120v-60h363L381-612l43-43 176 176-174 174Z"/></svg></i>
+							</div>
+							<div class="text-center w90">
+								<a href="{% url 'attendance_course' slug=current_student.slug %}" class="nodecoration text-center">دوره های فعال </a>
+							</div>
+						</div>
+						<div class="panelborder  flex-center">
+							<div class="icon">
+								<i><svg xmlns="http://www.w3.org/2000/svg" height="78px" viewBox="0 -960 960 960" width="78px" fill="#FFFFFF"><path d="M480-481q-66 0-108-42t-42-108q0-66 42-108t108-42q66 0 108 42t42 108q0 66-42 108t-108 42ZM160-160v-94q0-38 19-65t49-41q67-30 128.5-45T480-420q62 0 123 15.5t127.92 44.69q31.3 14.13 50.19 40.97Q800-292 800-254v94H160Zm60-60h520v-34q0-16-9.5-30.5T707-306q-64-31-117-42.5T480-360q-57 0-111 11.5T252-306q-14 7-23 21.5t-9 30.5v34Zm260-321q39 0 64.5-25.5T570-631q0-39-25.5-64.5T480-721q-39 0-64.5 25.5T390-631q0 39 25.5 64.5T480-541Zm0-90Zm0 411Z"/></svg></i>
+							</div>
+							<div class="text-center w90">
+								<a href="{% url 'home' %}" class="nodecoration text-center">بازگشت به صفحه ی اصلی</a>
+							</div>
+						</div>
+						<div class="panelborder flex-center">
+							<div>
+								<i><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#FFFFFF"><path d="M240-80q-50 0-85-35t-35-85v-560q0-50 35-85t85-35h420v620H240q-25.5 0-42.75 17.25T180-200q0 25.5 17.25 42.75T240-140h540v-660h60v720H240Zm100-240h260v-500H340v500Zm-60 0v-500h-40q-26 0-43 17.25T180-760v457q13-8 27.88-12.5Q222.77-320 240-320h40ZM180-820v517-517Z"/></svg></i>
+							</div>
+							<div class="text-center w90">
+								<a href="{% url 'attendance_course' slug=current_student.slug %}" class="nodecoration text-center">حضور/غیاب</a>
+							</div>
+						</div>
+						<div class="panelborder flex-center">
+							<div>
+								<i><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#FFFFFF"><path d="M237-363h335l60-60H237v60Zm0-178h231v-60H237v60Zm-97-159v439h330l-61 61H80v-560h800v149h-60v-89H140Zm775 220q5 5 5 12.5t-5 12.5l-37 37-50-50 39-39q5-5 10.5-5t10.5 5l27 27ZM530-120v-50l272-272 50 50-272 272h-50ZM140-700v439-439Z"/></svg></i>
+							</div>
+							<div class="text-center w90">
+								<a href="{% url 'score_courses' slug=current_student.slug %}" class="nodecoration text-center">نمرات</a>
+							</div>
+						</div>
+					</div>
+				</section>
+			</main>
+{% endblock %}

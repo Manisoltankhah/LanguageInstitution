@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load static %}
+{% block header_refrences %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/panelstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/portal.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.15.4-web/css/all.css' %}">
+{% endblock %}
+{% block title %}
+	پنل استاد
+{% endblock %}
+{% block content %}
+            	<body>
+				<section>
+					<div class="w90 text-center title2 padtop">
+						<b>ثبت نمرات</b>
+					</div>
+                    <div class="w90 text-center title2 padtop">
+                        <b>نام کلاس: {{ class_obj.term.name }} {{ class_obj.gender }}</b>
+                    </div>
+					<div>
+					<table class="content">
+						<thead >
+							<tr>
+								<th>ردیف</th>
+								<th>نام دوره</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+                        {% for student in students %}
+                            <tr>
+								<td>{{ forloop.counter }}</td>
+								<td>{{ student.full_name }}</td>
+								<td><a href="{% url 'score_taking' teacher_slug=teacher.slug class_slug=class_obj.slug student_slug=student.slug  %}">مشاهده</a></td>
+							</tr>
+                        {% endfor %}
+						</tbody>
+					</table>
+					</div>
+				</section>
+		    </body>
+{% endblock %}

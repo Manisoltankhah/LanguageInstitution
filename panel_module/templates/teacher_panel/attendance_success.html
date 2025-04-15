@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header_refrences %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/panelstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/portal.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome-free-5.15.4-web/css/all.css' %}">
+{% endblock %}
+
+{% block title %}
+    ثبت حضور و غیاب با موفقیت انجام شد
+{% endblock %}
+
+{% block content %}
+<body>
+    <section>
+        <div class="w90 text-center title2 padtop">
+            <b>ثبت حضور و غیاب با موفقیت انجام شد</b>
+        </div>
+        <div class="text-center padtop">
+            <b>اطلاعات حضور و غیاب دانش‌آموزان با موفقیت ثبت شد.</b>
+            <a href="{% url 'home' %}" class="btn btn-primary">بازگشت به صفحه ی اصلی</a>
+        </div>
+    </section>
+</body>
+{% endblock %}

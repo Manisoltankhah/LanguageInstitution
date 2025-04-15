@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load static %}
+{% block header_refrences %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/panelstyle.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome-free-5.15.4-web/css/all.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+{% endblock %}
+{% block title %}
+	پنل استاد
+{% endblock %}
+{% block content %}
+	<main id="mainpanel">
+				<aside class="panelsidebar">
+					<div class="layer"></div>
+					<div class="text-center">
+						<ul class="noliststyle menupanel gridpanel">
+							<li>
+								<a class="nodecoration text-center" href="#">
+									<div class="logo text-center">
+										<img src="../images/icons/institute.png" alt="logo" title="اموزشگاه زبان رایکا"></img>
+									</div>
+								</a>
+							</li>
+							<li><a class="nodecoration text-center" href="{% url 'attendance_active_courses' slug=current_teacher.slug %}">دوره های فعال</a></li>
+							<li><a class="nodecoration text-center" href="{% url 'attendance_active_courses' slug=current_teacher.slug %}">حضور/غیاب</a></li>
+							<li><a class="nodecoration text-center" href="{% url 'score_active_courses' slug=current_teacher.slug %}">ثبت  نمرات </a></li>
+							<li class="exiticon"><a class="nodecoration text-center" href="#"><i class="iconexit fas fa-times-circle"></i></a></li>
+						</ul>
+					</div>
+				</aside>
+				<section id="content">
+					<header id="headerpanel">
+						<div class=" headerback flex ">
+							<div class="text-center">
+								<div class="fontu"><b></b></div>
+								<div class="fontd"><b></b></div>
+							</div>
+							<div class="menuicon nodecoration">
+								<i class="icon fas fa-bars"></i>
+							</div>
+						</div>
+					</header>
+					<div  class="w90 pdtb flex-evenly2">
+						<div class="panelborder  flex-center">
+							<div>
+								<i><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#FFFFFF"><path d="M481-120v-60h299v-600H481v-60h299q24 0 42 18t18 42v600q0 24-18 42t-42 18H481Zm-55-185-43-43 102-102H120v-60h363L381-612l43-43 176 176-174 174Z"/></svg></i>
+							</div>
+							<div class="text-center w90">
+								<a href="{% url 'attendance_active_courses' slug=current_teacher.slug %}" class="nodecoration text-center">دوره های فعال </a>
+							</div>
+						</div>
+						<div class="panelborder flex-center">
+							<div>
+								<i><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#FFFFFF"><path d="M240-80q-50 0-85-35t-35-85v-560q0-50 35-85t85-35h420v620H240q-25.5 0-42.75 17.25T180-200q0 25.5 17.25 42.75T240-140h540v-660h60v720H240Zm100-240h260v-500H340v500Zm-60 0v-500h-40q-26 0-43 17.25T180-760v457q13-8 27.88-12.5Q222.77-320 240-320h40ZM180-820v517-517Z"/></svg></i>
+							</div>
+							<div class="text-center w90">
+								<a href="{% url 'attendance_active_courses' slug=current_teacher.slug %}" class="nodecoration text-center">حضور/غیاب</a>
+							</div>
+						</div>
+						<div class="panelborder flex-center">
+							<div>
+								<i><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#FFFFFF"><path d="M237-363h335l60-60H237v60Zm0-178h231v-60H237v60Zm-97-159v439h330l-61 61H80v-560h800v149h-60v-89H140Zm775 220q5 5 5 12.5t-5 12.5l-37 37-50-50 39-39q5-5 10.5-5t10.5 5l27 27ZM530-120v-50l272-272 50 50-272 272h-50ZM140-700v439-439Z"/></svg></i>
+							</div>
+							<div class="text-center w90">
+								<a href="{% url 'score_active_courses' slug=current_teacher.slug %}" class="nodecoration text-center">ثبت  نمرات </a>
+							</div>
+						</div>
+                        <div class="panelborder flex-center">
+							<div>
+								<i><svg xmlns="http://www.w3.org/2000/svg" height="48px" viewBox="0 -960 960 960" width="48px" fill="#FFFFFF"><path d="M237-363h335l60-60H237v60Zm0-178h231v-60H237v60Zm-97-159v439h330l-61 61H80v-560h800v149h-60v-89H140Zm775 220q5 5 5 12.5t-5 12.5l-37 37-50-50 39-39q5-5 10.5-5t10.5 5l27 27ZM530-120v-50l272-272 50 50-272 272h-50ZM140-700v439-439Z"/></svg></i>
+							</div>
+							<div class="text-center w90">
+								<a href="{% url 'home' %}" class="nodecoration text-center">صفحه ی اصلی </a>
+							</div>
+						</div>
+					</div>
+				</section>
+			</main>
+{% endblock %}
+{% block footer_refrences %}
+	<script src="{% static 'js/jquery/jquery.js' %}" type="text/javascript"></script>
+    <script src="{% static 'js/panels.js' %}" type="text/javascript"></script>
+{% endblock %}

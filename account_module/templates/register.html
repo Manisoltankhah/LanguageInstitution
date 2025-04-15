@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="UTF-8"></meta>
+			<meta name="keywords" content="html"></meta>
+			<meta name="description" content="زبانکده رایکا"></meta>
+			<meta name="viewport" content="width=device-width,initial-scale=1.0"></meta>
+			<link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css"></link>
+			<link href="{% static 'css/portal.css' %}" rel="stylesheet" type="text/css"></link>
+			<link href="{% static 'fontawesome-free-5.15.4-web/css/all.css' %}" rel="stylesheet"></link>
+            <title>ثبت نام</title>
+		</head>
+		<body class="back01">
+			<section id="login">
+				<div class="w90 padtop paddingbottom flex-reverse">
+					<div class="intro nodecoration text-center">
+						<h3>ثبت نام </h3>
+					</div>
+					<div class="padtop paddingbottom border">
+
+                        <form class="loginsec w50" method="post">
+                            {% csrf_token %}
+                            {{ form }}
+                            <button class="button btn margintop">تائید کلاس </button>
+                        </form>
+                    </div>
+					</div>
+				</div>
+			</section>
+		</body>
+	</html>
