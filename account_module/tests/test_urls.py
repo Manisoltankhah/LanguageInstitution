@@ -6,6 +6,7 @@ from account_module.views import (
     StudentGatewayView
 )
 
+
 class SimpleURLTests(SimpleTestCase):
     def test_register_url(self):
         url = reverse('register')
