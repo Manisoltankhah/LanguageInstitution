@@ -13,6 +13,7 @@ from panel_module.forms import ScoreForm
 
 User = get_user_model()
 
+
 class URLTests(TestCase):
     def test_teacher_panel_url_resolves(self):
         url = reverse('teacher_panel', args=['teacher-slug'])
