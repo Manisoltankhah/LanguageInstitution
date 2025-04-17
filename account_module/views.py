@@ -55,19 +55,15 @@ class StudentGatewayView(View):
             # Authenticate the user
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                if user.is_active:
-                    if user.user_type == 'student':
-                        # Log the user in and redirect to the student panel
-                        login(request, user)
-                        return redirect(reverse('student_panel', args=[user.slug]))
-                    else:
-                        student_gateway_form.add_error(None, 'شما زبان آموز نیستید')
+                if user.user_type == 'student':
+                    # Log the user in and redirect to the student panel
+                    login(request, user)
+                    return redirect(reverse('student_panel', args=[user.slug]))
                 else:
-                    # Add an error if the account is inactive
-                    student_gateway_form.add_error(None, 'اکانت شما فعال سازی نشده')
+                    student_gateway_form.add_error(None, 'شما زبان آموز نیستید')
             else:
                 # Add an error if the credentials are invalid
-                student_gateway_form.add_error(None, 'نام کاربری و رمز عبور اشتباه است')
+                student_gateway_form.add_error(None, 'نام کاربری و رمز عبور اشتباه است یا اکانت شما فعال سازی نشده')
 
         # If the form is invalid or authentication fails, re-render the form
         return render(request, 'student_gateway.html', {'student_gateway_form': student_gateway_form})
@@ -87,15 +83,12 @@ class TeacherGatewayView(View):
             password = teachers_gateway_form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                if user.is_active:
-                    if user.user_type == 'teacher':
-                        login(request, user)
-                        return redirect(reverse('teacher_panel', args=[user.slug]))
-                    else:
-                        teachers_gateway_form.add_error(None, 'شما جزو اساتید نیستید')
+                if user.user_type == 'teacher':
+                    login(request, user)
+                    return redirect(reverse('teacher_panel', args=[user.slug]))
                 else:
-                    teachers_gateway_form.add_error(None, 'اکانت شما فعال سازی نشده')
+                    teachers_gateway_form.add_error(None, 'شما جزو اساتید نیستید')
             else:
-                teachers_gateway_form.add_error(None, 'نام کاربری و رمز عبور اشتباه است')
+                teachers_gateway_form.add_error(None, 'نام کاربری و رمز عبور اشتباه است یا اکانت شما فعال سازی نشده')
 
         return render(request, 'teacher_gateway.html', context={'teachers_gateway_form': teachers_gateway_form})

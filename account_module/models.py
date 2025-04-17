@@ -43,10 +43,11 @@ class User(AbstractUser):
         if not self.current_term:
             print(f"{self.first_name} {self.last_name} has no current term assigned. Cannot promote.")
             return False
-
+        self.refresh_from_db()
         # Check if student passed the term
         try:
             academic_record = AcademicRecord.objects.get(student=self, term=self.current_term)
+            print(f"Found AcademicRecord: {academic_record}")
             if not academic_record.passed:
                 print(f"{self.first_name} {self.last_name} did not pass the current term. Cannot promote.")
                 return False
@@ -131,7 +132,6 @@ class Class(models.Model):
         ('male', 'Male'),
         ('female', 'Female'),
     )
-
     name = models.CharField(max_length=100)
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     teacher = models.ForeignKey(User, on_delete=models.CASCADE, related_name='classes_taught')
@@ -151,8 +151,14 @@ class Class(models.Model):
             except User.DoesNotExist:
                 raise ValueError("No teacher exists in the system. Please create a teacher first.")
 
-        self.slug = slugify(self.name)
-        # Call the parent save method to save the class instance first
+        # Generate a unique slug
+        if not self.slug:
+            base_slug = slugify(self.name)
+            self.slug = base_slug
+            while Class.objects.filter(slug=self.slug).exists():
+                self.slug = f"{base_slug}-{uuid.uuid4().hex[:6]}"
+
+        # Call the parent save method
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -241,6 +247,8 @@ class Score(models.Model):
         # Call the parent save method to save the score first
         super().save(*args, **kwargs)
 
+        print(f"Saving score for {self.student.username} in term {self.term.name}")
+
         # Ensure an AcademicRecord exists for this student and term
         academic_record, created = AcademicRecord.objects.get_or_create(
             student=self.student,
@@ -248,13 +256,18 @@ class Score(models.Model):
             defaults={'passed': False}  # Default to not passed
         )
 
-        # If the AcademicRecord was just created, update it based on the score
-        if created:
-            if self.total_score > 70:
-                academic_record.passed = True
-            else:
-                academic_record.passed = False
-            academic_record.save()
+        print(
+            f"AcademicRecord {'created' if created else 'updated'} for {self.student.username} in term {self.term.name}")
+
+        # Update the AcademicRecord based on the total score
+        if self.total_score > 70:
+            academic_record.passed = True
+        else:
+            academic_record.passed = False
+
+        # Save the updated AcademicRecord
+        academic_record.save()
+        print(f"AcademicRecord saved with passed={academic_record.passed}")
 
     def __str__(self):
         return f"{self.student.username} - Total: {self.total_score}"
