@@ -25,14 +25,31 @@
 							<tr>
 								<th>ردیف</th>
 								<th>نام دوره</th>
-								<th></th>
+								<th>کوِئیز 1</th>
+								<th>کوِئیز 2</th>
+								<th>شفاهی</th>
+								<th>فعالیت کلاسی</th>
+								<th>نمره ی پایانی</th>
+								<th>وضعیت</th>
 							</tr>
 						</thead>
 						<tbody>
                         {% for score in scores %}
                             <tr>
 								<td>{{ forloop.counter }}</td>
+								<td>{{ score.term.name }}</td>
+								<td>{{ score.quiz_1 }}</td>
+								<td>{{ score.quiz_2 }}</td>
+								<td>{{ score.oral_or_listening }}</td>
+								<td>{{ score.class_activity }}</td>
 								<td>{{ score.total_score }}</td>
+								<td>
+                                    {% if score.total_score >= 70 %}
+                                        قبول
+                                    {% else %}
+                                        مردود
+                                    {% endif %}
+                                </td>
 							</tr>
                         {% endfor %}
 						</tbody>

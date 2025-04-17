@@ -10,7 +10,7 @@
 {% block content %}
     <main class="back01">               
 				<div class="menubar">		<!-- menu for responsive design -->
-					<div class="text-center logo text-center"><img src="images/icons/institute.png" title="RAYKA" alt="logo"></img></div>   <!-- LOGO -->
+					<div class="text-center logo text-center"><img src="{{ site_settings.logo.url }}" title="RAYKA" alt="logo"></img></div>   <!-- LOGO -->
 					<div>																		
 						<ul class="noliststyle menu">															
 							<li><a href="#" class="menuli">درباره ما</a></li>			
@@ -24,7 +24,7 @@
 				</div>
 				<header id="header">
 					<nav class="w90 flex">
-							<div class="logo2"><img src="images/icons/institute.png" alt="logo" title="اموزشگاه زبان رایکا"></img></div>
+							<div class="logo2"><img src="{{ site_settings.logo.url }}" alt="logo" title="اموزشگاه زبان رایکا"></img></div>
 						<div class="menuicon">
 							<i class="fas fa-bars icon entryicon"></i>
 						</div>
@@ -48,7 +48,7 @@
 				</div>				
 				<section id="main">
 					<div class="intro text-center fontBYekan">
-						<h1 title="05138323534">کالج زبان رایکا</h1>
+						<h1 title="05138323534">{{ site_settings.site_name }}</h1>
 					</div>
 						<div id="portal" class=" grid ">
 							<div class="profile flex3">
@@ -72,57 +72,39 @@
 			</main>
     <section id="news" class="w90 adress">
 						<div class="intro "><h2>اطلاعیه ها </h2></div>
-						<div class="grid">
-						<div class="news w90 marginbot padtop">
-							<div class="images"></div>
-							<div class=" text-right">
-								<div class="paddingbottom">
-									<h3 >اطلاعیه شروع ترم تحصیلی</h3>
-								</div>
-								<div>
-								<p>این اطلاعیه در روز 25 سژتامبر انجام می شود </p>
-								</div>
-							</div>
-						</div>
-						</div>
+						{% for announcement in announcements %}
+							<div class="grid">
+                                <div class="news w90 marginbot padtop">
+                                    <div class="images"></div>
+                                    <div class=" text-right">
+                                        <div class="paddingbottom">
+                                            <h3>{{ announcement.title }}</h3>
+                                        </div>
+                                        <div>
+                                        <p>{{ announcement.content }}</p>
+                                        <p>{{ announcement.created_date }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+						{% endfor %}
+
 			</section>
     <section id="About" class="marginbot">
 				<h2 class="title text-center marginbot">اخبار ویژه + مقررات</h2>
-				<div class="faq">
-					<div class="question">
-						<i class=" icon2 fa fa-angle-double-down"></i>	
-						<h3>اخبار ویژه</h3>
-					</div>
-					<div class="answer">
-						<p>
-							تکمیل خواهد شد 
-						</p>
-					</div>
-				</div>
-								<div class="faq">
-					<div class="question">
-						<i class="icon2 fa fa-angle-double-down"></i>
-						<h3>مقررات انضباطی</h3>
-					</div>
-					<div class="answer">
-						<p>
-							تکمیل خواهد شد 
-						</p>
-					</div>
-				</div>
-								<div class="faq">
-					<div class="question">
-						<i class="icon2 fa fa-angle-double-down"></i>
-						<h3>مقررات عمومی انضباطی </h3>
-					</div>
-					<div class="answer">
-						<ul>
-							<li class="text-right paddingbottom">رعایت ادب نسبت به مسئول کالج کارکنان و مدرسان</li>
-							<li class="text-right paddingbottom">رعایت خوش رفتاری با زبان اموزان</li>
-						</ul>
-					</div>
-				</div>
-			</section>
+
+        <div class="faq">
+            <div class="question">
+                <i class="icon2 fa fa-angle-double-down"></i>
+                <h3>مقررات انضباطی</h3>
+            </div>
+            <div class="answer">
+                <p>
+                    {{ site_settings.rules }}
+                </p>
+            </div>
+        </div>
+    </section>
     <footer id="footer" class="back01 padtop">
 				<div class="w90">
 					<div class="fontBYekan intro text-right">
@@ -151,12 +133,10 @@
 								</div>
 								<div class="nodecoration  text-center answer padtop">
 									<div class="paddingbottom nodecoration">
-										<b>شماره تماس : 0513831636</b>
-										<br/>
-										<b>05137323033</b>
+										<b>شماره تماس : {{ site_settings.phone_number }}</b>
 									</div>
 									<div class="footerfont nodecoration marginbot text-center padtop">
-										<b>نشانی : گلبهار  بلوار پیروزی امیرکبیر امیرکبیر 5</b>
+										<b>{{ site_settings.address }}</b>
 									</div>
 									<div class="flex marginbot">
 										<a href="#" class="nodecoration"><i class="fab fa-whatsapp"></i></a>
@@ -172,7 +152,7 @@
     <div class="copyright flex">
 				<div class=" nodecoration flex  w90">
 					<i class="fas fa-exclamation-circle"></i>
-					<p>تمامی حقوق مادی و معنوی این وبسایت متعلق به  <b>رایکا</b>  می باشد </p>
+					<p>تمامی حقوق مادی و معنوی این وبسایت متعلق به  <b>{{ site_settings.site_name }}</b>  می باشد </p>
 					<p>طراحان و برنامه نویسان <b>سهراب ادبی و مهدی سلطانخواه</b></p>
 				</div>
 			</div>

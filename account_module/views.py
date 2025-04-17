@@ -4,10 +4,6 @@ from django.views import View
 from account_module.forms import GatewayForm, RegisterForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
-from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib import messages
 
 
 class UserRegistrationView(View):
