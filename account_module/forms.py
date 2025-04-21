@@ -11,12 +11,12 @@ class RegisterForm(forms.ModelForm):
     A form for registering new users.
     """
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Enter your password'}),
-        label="Password"
+        widget=forms.PasswordInput(attrs={'placeholder': 'رمز عبور را وارد کنید'}),
+        label=""
     )
     confirm_password = forms.CharField(
-        widget=forms.PasswordInput(attrs={'placeholder': 'Confirm your password'}),
-        label="Confirm Password"
+        widget=forms.PasswordInput(attrs={'placeholder': 'رمز عبور را تکرار کنید'}),
+        label=""
     )
 
     class Meta:
@@ -31,12 +31,22 @@ class RegisterForm(forms.ModelForm):
             'password',
         ]
         widgets = {
-            'first_name': forms.TextInput(attrs={'placeholder': 'Enter your first_name'}),
-            'last_name': forms.TextInput(attrs={'placeholder': 'Enter your last_name'}),
+            'first_name': forms.TextInput(attrs={'placeholder': 'نام کوچک'}),
+            'last_name': forms.TextInput(attrs={'placeholder': 'نام خانوادگی'}),
             'user_type': forms.Select(choices=User.USER_TYPE_CHOICES, attrs={'class': 'form-select', 'id': 'schedule'}),
             'gender': forms.Select(choices=User.GENDER_CHOICES, attrs={'class': 'form-select', 'id': 'schedule'}),
-            'national_id': forms.TextInput(attrs={'placeholder': 'Enter your national ID'}),
-            'parent_number': forms.TextInput(attrs={'placeholder': 'Enter parent phone number'}),
+            'national_id': forms.TextInput(attrs={'placeholder': 'کد ملی'}),
+            'parent_number': forms.TextInput(attrs={'placeholder': 'شماره ی شخص یا والدین'}),
+        }
+        labels = {
+            'first_name': '',
+            'last_name': '',
+            'user_type': 'معلم/زبان آموز',
+            'gender': 'جنسیت',
+            'national_id': '',
+            'parent_number': '',
+            'password': '',
+            'confirm_password': '',
         }
 
     def clean(self):

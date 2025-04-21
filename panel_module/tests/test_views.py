@@ -7,7 +7,7 @@ from panel_module.views import (
     TeacherPanelView, TeacherActiveCoursesView, ClassSessionsView, TakeAttendanceView,
     AttendanceSuccessView, TeacherActiveCoursesForScoresView, ScoresStudentsView,
     SetScoreView, StudentPanelView, StudentActiveCoursesView, StudentAttendanceDetailView,
-    StudentScoreActiveCoursesView, StudentScoreDetailView
+    StudentScoreDetailView
 )
 from panel_module.forms import ScoreForm
 
@@ -70,14 +70,14 @@ class URLTests(TestCase):
         self.assertEqual(url, '/student-panel/student-slug/attendance/class-slug/')
         self.assertEqual(resolve(url).func.view_class, StudentAttendanceDetailView)
 
-    def test_score_courses_url_resolves(self):
-        url = reverse('score_courses', args=['student-slug'])
-        self.assertEqual(url, '/student-panel/student-slug/score/')
-        self.assertEqual(resolve(url).func.view_class, StudentScoreActiveCoursesView)
+    # def test_score_courses_url_resolves(self):
+    #     url = reverse('score_courses', args=['student-slug'])
+    #     self.assertEqual(url, '/student-panel/student-slug/score/')
+    #     self.assertEqual(resolve(url).func.view_class, StudentScoreActiveCoursesView)
 
     def test_score_detail_url_resolves(self):
-        url = reverse('score_detail', args=['student-slug', 'class-slug'])
-        self.assertEqual(url, '/student-panel/student-slug/score/class-slug/')
+        url = reverse('score_detail', args=['student-slug'])
+        self.assertEqual(url, '/student-panel/student-slug/score/')
         self.assertEqual(resolve(url).func.view_class, StudentScoreDetailView)
 
 
@@ -274,16 +274,16 @@ class StudentPanelViewsTest(TestCase):
         self.assertTemplateUsed(response, 'student_panel/student_attendance_detail.html')
         self.assertIn(self.attendance_record, response.context['sessions_info'])
 
-    def test_student_score_active_courses_view(self):
-        self.client.force_login(self.student)
-        response = self.client.get(reverse('score_courses', args=[self.student.slug]))
-        self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'student_panel/student_score_active_course.html')
-        self.assertIn(self.term, response.context['previous_terms'])
+    # def test_student_score_active_courses_view(self):
+    #     self.client.force_login(self.student)
+    #     response = self.client.get(reverse('score_courses', args=[self.student.slug]))
+    #     self.assertEqual(response.status_code, 200)
+    #     self.assertTemplateUsed(response, 'student_panel/student_score_active_course.html')
+    #     self.assertIn(self.term, response.context['previous_terms'])
 
     def test_student_score_detail_view(self):
         self.client.force_login(self.student)
-        response = self.client.get(reverse('score_detail', args=[self.student.slug, self.class_obj.slug]))
+        response = self.client.get(reverse('score_detail', args=[self.student.slug]))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'student_panel/student_score_detail.html')
         self.assertIn(self.score, response.context['scores'])

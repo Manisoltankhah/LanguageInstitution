@@ -4,7 +4,7 @@ from panel_module.views import (
     TeacherPanelView, TeacherActiveCoursesView, ClassSessionsView,
     TakeAttendanceView, AttendanceSuccessView, TeacherActiveCoursesForScoresView,
     ScoresStudentsView, SetScoreView, StudentPanelView, StudentActiveCoursesView,
-    StudentAttendanceDetailView, StudentScoreActiveCoursesView, StudentScoreDetailView
+    StudentAttendanceDetailView, StudentScoreDetailView
 )
 
 
@@ -109,20 +109,18 @@ class URLPatternTests(TestCase):
         self.assertEqual(resolved.kwargs['student_slug'], 'student1')
         self.assertEqual(resolved.kwargs['class_slug'], 'math101')
 
-    def test_score_courses_url(self):
-        url = reverse('score_courses', kwargs={'slug': 'student1'})
-        self.assertEqual(url, '/student-panel/student1/score/')
-        resolved = resolve(url)
-        self.assertEqual(resolved.func.view_class, StudentScoreActiveCoursesView)
-        self.assertEqual(resolved.kwargs['slug'], 'student1')
+    # def test_score_courses_url(self):
+    #     url = reverse('score_courses', kwargs={'slug': 'student1'})
+    #     self.assertEqual(url, '/student-panel/student1/score/')
+    #     resolved = resolve(url)
+    #     self.assertEqual(resolved.func.view_class, StudentScoreActiveCoursesView)
+    #     self.assertEqual(resolved.kwargs['slug'], 'student1')
 
     def test_score_detail_url(self):
         url = reverse('score_detail', kwargs={
             'student_slug': 'student1',
-            'class_slug': 'math101'
         })
-        self.assertEqual(url, '/student-panel/student1/score/math101/')
+        self.assertEqual(url, '/student-panel/student1/score/')
         resolved = resolve(url)
         self.assertEqual(resolved.func.view_class, StudentScoreDetailView)
         self.assertEqual(resolved.kwargs['student_slug'], 'student1')
-        self.assertEqual(resolved.kwargs['class_slug'], 'math101')

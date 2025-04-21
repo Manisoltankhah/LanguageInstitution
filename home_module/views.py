@@ -16,3 +16,23 @@ class IndexView(TemplateView):
         return context
 
 
+class AboutView(TemplateView):
+    template_name = 'about_us.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(AboutView, self).get_context_data(**kwargs)
+        site_settings = SiteSettings.objects.first()
+        context['site_settings'] = site_settings
+        return context
+
+
+class RuleView(TemplateView):
+    template_name = 'rules.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(RuleView, self).get_context_data(**kwargs)
+        site_settings = SiteSettings.objects.first()
+        context['site_settings'] = site_settings
+        return context
+
+

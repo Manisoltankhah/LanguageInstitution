@@ -18,6 +18,6 @@ urlpatterns = [
     path('student-panel/<slug:slug>/', views.StudentPanelView.as_view(), name='student_panel'),
     path('student-panel/<slug:slug>/attendance/', views.StudentActiveCoursesView.as_view(), name='attendance_course'),
     path('student-panel/<slug:student_slug>/attendance/<slug:class_slug>/', views.StudentAttendanceDetailView.as_view(), name='attendance_info'),
-    path('student-panel/<slug:slug>/score/', views.StudentScoreActiveCoursesView.as_view(), name='score_courses'),
-    path('student-panel/<slug:student_slug>/score/<slug:class_slug>/', views.StudentScoreDetailView.as_view(), name='score_detail'),
+    # path('student-panel/<slug:slug>/score/', views.StudentScoreActiveCoursesView.as_view(), name='score_courses'),
+    path('student-panel/<slug:student_slug>/score/', views.StudentScoreDetailView.as_view(), name='score_detail'),
 ]

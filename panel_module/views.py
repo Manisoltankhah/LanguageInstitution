@@ -59,20 +59,24 @@ class ClassSessionsView(TemplateView):
 
 class TakeAttendanceView(View):
     def get(self, request, teacher_slug, class_slug, pk):
+        # Retrieve the teacher, class, and session objects
         teacher = get_object_or_404(User, slug=teacher_slug, user_type='teacher')
         class_obj = get_object_or_404(Class, slug=class_slug)
         session = get_object_or_404(AttendanceSession, pk=pk, class_obj=class_obj)
 
+        # Ensure the teacher is authorized to take attendance for this class
         if teacher != class_obj.teacher:
             return render(request, 'error.html', {'message': 'You are not authorized to take attendance for this class.'})
 
-        students = User.objects.filter(user_type='student', current_term=class_obj.term)
+        # Get all students enrolled in the specific class
+        students = class_obj.students.filter(user_type='student')  # Filter by the class's students
         students_with_attendance = []
         for student in students:
             attendance_record = AttendanceRecord.objects.filter(session=session, student=student).first()
             is_present = attendance_record.present if attendance_record else False
             students_with_attendance.append({'student': student, 'is_present': is_present})
 
+        # Render the attendance page with the required context
         return render(request, 'teacher_panel/take_attendance.html', {
             'teacher': teacher,
             'class_obj': class_obj,
@@ -81,14 +85,19 @@ class TakeAttendanceView(View):
         })
 
     def post(self, request, teacher_slug, class_slug, pk):
+        # Retrieve the teacher, class, and session objects
         teacher = get_object_or_404(User, slug=teacher_slug, user_type='teacher')
         class_obj = get_object_or_404(Class, slug=class_slug)
         session = get_object_or_404(AttendanceSession, pk=pk, class_obj=class_obj)
 
+        # Ensure the teacher is authorized to take attendance for this class
         if teacher != class_obj.teacher:
             return render(request, 'error.html', {'message': 'You are not authorized to take attendance for this class.'})
 
-        students = User.objects.filter(user_type='student', current_term=class_obj.term)
+        # Get all students enrolled in the specific class
+        students = class_obj.students.filter(user_type='student')  # Filter by the class's students
+
+        # Process attendance records for each student
         for student in students:
             present = request.POST.get(f'student_{student.id}') == 'on'
             AttendanceRecord.objects.update_or_create(
@@ -96,8 +105,9 @@ class TakeAttendanceView(View):
                 student=student,
                 defaults={'present': present}
             )
-        return redirect('attendance_success')
 
+        # Redirect to a success page after processing attendance
+        return redirect('attendance_success')
 
 class AttendanceSuccessView(View):
     def get(self, request):
@@ -203,30 +213,30 @@ class StudentAttendanceDetailView(TemplateView):
         return context
 
 
-class StudentScoreActiveCoursesView(TemplateView):
-    template_name = 'student_panel/student_score_active_course.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        current_student = self.request.user
-
-        # Retrieve all terms where the student has scores
-        terms_with_scores = (
-            Score.objects.filter(student=current_student)
-            .values_list('term', flat=True)
-            .distinct()
-        )
-
-        # Retrieve the Term objects for those terms
-        previous_terms = Term.objects.filter(id__in=terms_with_scores).order_by('-order')
-
-        # Debugging: Print the terms to verify
-        print("Previous Terms:", previous_terms)
-
-        # Add data to the context
-        context['current_student'] = current_student
-        context['previous_terms'] = previous_terms
-        return context
+# class StudentScoreActiveCoursesView(TemplateView):
+#     template_name = 'student_panel/student_score_active_course.html'
+#
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         current_student = self.request.user
+#
+#         # Retrieve all terms where the student has scores
+#         terms_with_scores = (
+#             Score.objects.filter(student=current_student)
+#             .values_list('term', flat=True)
+#             .distinct()
+#         )
+#
+#         # Retrieve the Term objects for those terms
+#         previous_terms = Term.objects.filter(id__in=terms_with_scores).order_by('-order')
+#
+#         # Debugging: Print the terms to verify
+#         print("Previous Terms:", previous_terms)
+#
+#         # Add data to the context
+#         context['current_student'] = current_student
+#         context['previous_terms'] = previous_terms
+#         return context
 
 
 class StudentScoreDetailView(TemplateView):

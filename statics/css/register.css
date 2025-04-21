@@ -1,0 +1,85 @@
+.back01 {
+            background: linear-gradient(135deg, #2c4359 0%, #2c4359 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #login {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .w90.padtop.paddingbottom.flex-reverse {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            align-items: center;
+            width: 90%;
+            padding: 2rem 0;
+        }
+        .intro.nodecoration.text-center {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-right: 2rem;
+        }
+        .padtop.paddingbottom.border {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            padding: 2rem;
+            width: 100%;
+            max-width: 400px;
+        }
+        .loginsec.w50 {
+            width: 100%;
+        }
+        .loginsec.w50 label {
+            color: #2c445a;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            display: block;
+            font-size: 1rem;
+        }
+        .loginsec.w50 input,
+        .loginsec.w50 select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+            transition: border-color 0.3s ease;
+            font-size: 1rem;
+        }
+        .loginsec.w50 input:focus,
+        .loginsec.w50 select:focus {
+            outline: none;
+            border-color: #2c445a;
+            box-shadow: 0 0 5px rgba(16, 50, 104, 0.3);
+        }
+        .loginsec.w50 input::placeholder,
+        .loginsec.w50 select:invalid {
+            color: #9ca3af;
+        }
+        .loginsec.w50 select {
+            color: #9ca3af;
+        }
+        .loginsec.w50 select option {
+            color: #2c445a;
+        }
+        .button.btn.margintop {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: #2c445a;
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 1rem;
+        }
+        .button.btn.margintop:hover {
+            background-color: #2c445a;
+        }
